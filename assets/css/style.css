@@ -17996,7 +17996,7 @@ li.with-megamenu:hover .rts-megamenu {
   max-height: 94px;
   margin: auto;
   margin-bottom: 18px;
-  min-height: 60px;
+  min-height: 95px;
   text-align: center;
   display: flex;
 }
@@ -18912,7 +18912,8 @@ li.with-megamenu:hover .rts-megamenu {
 }
 
 .single-shopping-card-one.discount-offer .thumbnail-preview img {
-  height: 186px;
+  height: 150px;
+  width: 150px;
   object-fit: cover;
 }
 
@@ -28588,4 +28589,8 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
   right: 0;
 }
 
+
+ .blog-img img *{
+                height: 200px;
+            }
 /*# sourceMappingURL=../maps/style.css.map */

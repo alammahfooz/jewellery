@@ -34,6 +34,7 @@ if (isset($_GET['remove_item'])) {
     <link rel="stylesheet preload" href="assets/css/plugins.css" as="style">
     <link rel="stylesheet preload" href="assets/css/style.css" as="style">
 
+  
 </head>
 
 <body class="shop-main-h">
@@ -136,7 +137,7 @@ if (isset($_GET['remove_item'])) {
                                                     <img src="upload/<?= $product['product_image']; ?>" alt="">
                                                 </div>
                                                 <div class="details">
-                                                    <a href="shop-details.html">
+                                                    <a href="cart.php?id=<?= $product['id'] ?>">
                                                         <h5 class="title"><?= $product['product_title'] ?></h5>
                                                     </a>
                                                     <div class="number">
@@ -287,9 +288,9 @@ if (isset($_GET['remove_item'])) {
                                             </ul>
                                         </li>
                                         <li class="parent has-dropdown">
-                                            <a class="nav-link" href="#">Blog</a>
+                                            <a class="nav-link" href="blog.php">Blog</a>
                                             <ul class="submenu">
-                                                <li><a class="sub-b" href="blog.html">Blog</a></li>
+                                                <li><a class="sub-b" href="blog.php">Blog</a></li>
                                                 <li><a class="sub-b" href="blog-list-left-sidebar.html">Blog List Right Sidebar</a></li>
                                                 <li><a class="sub-b" href="blog-list-right-sidebar.html">Blog List Left Sidebar</a></li>
                                                 <li><a class="sub-b" href="blog-details.html">Blog Details</a></li>
