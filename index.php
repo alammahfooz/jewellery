@@ -530,7 +530,7 @@ if (isset($_POST['subcategory'])) {
             <div class="col-lg-12">
                 <div class="title-area-between">
                     <h2 class="title-left mb--0">
-                        Latest Blog Post Insights Mahfooz
+                        Latest Blog Post Insights 
                     </h2>
                 </div>
             </div>
