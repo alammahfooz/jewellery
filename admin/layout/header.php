@@ -2,6 +2,7 @@
 include('left-pannel.php');
 include('include/dbconnect.php');
 include('include/configuration.php');
+date_default_timezone_set('Asia/Kolkata');
 ?>
 
 <!DOCTYPE html>

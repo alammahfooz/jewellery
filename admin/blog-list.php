@@ -1,16 +1,18 @@
  <?php
     include('layout/header.php');
+    date_default_timezone_set('Asia/Kolkata');
 
+    // $publish_date = date('Y-m-d H:i:s');
     // DELETE
     if (isset($_GET['action']) && $_GET['action'] == 'del' && isset($_GET['id'])) {
         $id = intval($_GET['id']);
         $del_query = "DELETE FROM `blog` WHERE id=$id";
         mysqli_query($conn, $del_query);
         header("Location: blog-list.php");
-        exit();
+        exit();     
     }
 
-    // STATUS UPDATE
+    // STATUS UPDATE                                
     if (isset($_GET['act']) && $_GET['act'] == 'cstatus' && isset($_GET['id']) && isset($_GET['status'])) {
 
         $id = intval($_GET['id']);
@@ -34,7 +36,6 @@
                      <div class="col-lg-12">
                          <div class="card stretch stretch-full">
                              <div class="card-body">
-
                                  <div class="table-responsive mb-5">
                                      <table class="table table-bordered table-striped">
                                          <thead>
@@ -62,8 +63,10 @@
                                                          <td><?php echo $row['blog_title']; ?></td>
                                                          <td><?php echo $row['blog_slug']; ?></td>
                                                          <td><?php echo $row['blog_auther']; ?></td>
-                                                         <td><?php echo $row['publish_date']; ?></td>
+                                                         <td> <?php echo date('d M Y', $row['publish_date']); ?></td>
+                                                        
 
+                                                          
                                                          <td>
                                                              <?php if ($row['status'] == 1) { ?>
                                                                  <a class="btn btn-success"
@@ -71,8 +74,7 @@
                                                                      <i class="fa fa-check"></i>
                                                                  </a>
                                                              <?php } else { ?>
-                                                                 <a class="btn btn-danger"
-                                                                     href="blog-list.php?act=cstatus&status=1&id=<?php echo $row['id']; ?>">
+                                                                 <a class="btn btn-danger" href="blog-list.php?act=cstatus&status=1&id=<?php echo $row['id']; ?>">
                                                                      <i class="fa fa-close"></i>
                                                                  </a>
                                                              <?php } ?>

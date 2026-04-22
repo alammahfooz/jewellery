@@ -14,7 +14,8 @@ if (isset($_POST['submit'])) {
     $additional_info = addslashes($_POST['additional_info']);
     $sort_order = addslashes($_POST['sort_order']);
     $array = explode(".", $_FILES['blog_image']['name']);
-    $publish_date = addslashes($_POST['publish_date']);
+    $publish_date = strtotime($_POST['publish_date']);
+    
     $time = time();
     $ext = array_pop($array);
     if (!empty($ext)) {
@@ -25,7 +26,12 @@ if (isset($_POST['submit'])) {
         $image = addslashes($thumbName);
     }
 
+    // $add_date = time();
+
+   
+    
     $add_date = time();
+    
     $status = isset($_POST['status']) ? 1 : 0;
 
 
@@ -134,7 +140,7 @@ $msg = "";
                                     </div>
                                     <div class="col-lg-6 mb-4">
                                         <label for="" class="fs-6 mb-2">Publish Date </label>
-                                        <input type="date" name="publish_date" value="" class="form-control mb-2" placeholder="MM/DD/YY" required>
+                                        <input type="date" name="publish_date" value="" class="form-control mb-2" placeholder="MM/DD/YY" required>                                                    
                                     </div>
                                 </div>
 
