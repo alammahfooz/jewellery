@@ -378,7 +378,7 @@ if (isset($_POST['subcategory'])) {
 
 
 <!-- rts top tranding product area -->
-<div class="top-tranding-product rts-section-gap">
+<div class="top-tranding-product rts-section-gap" id="trending_product">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -430,7 +430,6 @@ if (isset($_POST['subcategory'])) {
     </div>
 </div>
 <!-- rts top tranding product area end -->
-
 <!-- rts top tranding product area -->
 <div class="blog-area-start rts-section-gapBottom">
     <div class="container">
@@ -498,7 +497,6 @@ if (isset($_POST['subcategory'])) {
     </div>
 </div>
 <!-- rts top tranding product area end -->
-
 
 <?php include('layout/footer.php'); ?>
 

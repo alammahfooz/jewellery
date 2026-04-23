@@ -115,15 +115,15 @@ if (isset($_GET['remove_item'])) {
                                 <a href="wishlist.html" class="btn-border-only wishlist">
                                     <i class="fa-regular fa-heart"></i>
                                     <span class="text">Wishlist</span>
-                                    <span class="number">2</span>
+                                    <span class="number">1</span>
                                 </a>
                                
                                 <div class="btn-border-only cart category-hover-header">
                                     <i class="fa-sharp fa-regular fa-cart-shopping"></i>
                                     <span class="text">My Cart</span>
-                                    <span class="number">2</span>
+                                    <span class="number">1</span>
                                     <div class="category-sub-menu card-number-show">
-                                        <h5 class="shopping-cart-number">Shopping Cart (03)</h5>
+                                        <h5 class="shopping-cart-number">Shopping Cart (01)</h5>
                                           <?php if (!empty($_SESSION['product_id'])) {
                                             $id = $_SESSION['product_id'];
                                             $main_product = "SELECT * FROM product WHERE id = $id";
@@ -192,117 +192,23 @@ if (isset($_GET['remove_item'])) {
                                 <nav>
                                     <ul class="parent-nav">
                                         <li class="parent has-dropdown">
-                                            <a class="nav-link" href="#">Home</a>
-                                            <ul class="submenu">
-                                                <li><a class="sub-b" href="index.php">Home One</a></li>
-                                                <li><a class="sub-b" href="index-two.html">Home Two</a></li>
-                                                <li><a class="sub-b" href="index-three.html">Home Three</a></li>
-                                                <li><a class="sub-b" href="index-four.html">Home Four</a></li>
-                                                <li><a class="sub-b" href="index-five.html">Home Five</a></li>
-                                            </ul>
+                                            <a class="nav-link" href="http://localhost/jewellery/">Home</a>
                                         </li>
                                         <li class="parent"><a href="about.php">About</a></li>
-                                        <li class="parent with-megamenu">
-                                            <a href="#">Shop</a>
-                                            <div class="rts-megamenu">
-                                                <div class="wrapper">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-lg-8">
-                                                            <div class="megamenu-item-wrapper">
-                                                                <!-- single item areas start -->
-                                                                <div class="single-megamenu-wrapper">
-                                                                    <p class="title">Shop Layout</p>
-                                                                    <ul>
-                                                                        <li><a href="shop-grid-sidebar.html">Shop Grid Sidebar</a></li>
-                                                                        <li><a href="shop-list-sidebar.html">Shop list Sidebar</a></li>
-                                                                        <li><a href="shop-grid-top-filter.html">Shop Top Filter Grid</a></li>
-                                                                        <li><a href="shop-list-top-filter.html">Shop Top Filter List</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <!-- single item areas end -->
-                                                                <!-- single item areas start -->
-                                                                <div class="single-megamenu-wrapper">
-                                                                    <p class="title">Shop Details</p>
-                                                                    <ul>
-                                                                        <li><a class="sub-b" href="shop-details.html">Shop Details</a></li>
-                                                                        <li><a class="sub-b" href="shop-details-2.html">Shop Details V2</a></li>
-                                                                        <li><a class="sub-b" href="shop-details-right-sidebar.html">Shop Details V3</a></li>
-                                                                        <li><a class="sub-b" href="shop-details-4.html">Shop Details V4</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <!-- single item areas end -->
-                                                                <!-- single item areas start -->
-                                                                <div class="single-megamenu-wrapper">
-                                                                    <p class="title">Product Feature</p>
-                                                                    <ul>
-                                                                        <li><a class="sub-b" href="shop-details-variable.html">Variable product</a></li>
-                                                                        <li><a class="sub-b" href="shop-details-affiliats.html">Affiliate product</a></li>
-                                                                        <li><a class="sub-b" href="shop-details-group.html">Shop Details Group</a></li>
-                                                                        <li><a class="sub-b" href="shop-compare.html">Shop Compare</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <!-- single item areas end -->
-                                                                <!-- single item areas start -->
-                                                                <div class="single-megamenu-wrapper">
-                                                                    <p class="title">Shop Others</p>
-                                                                    <ul>
-                                                                        <li><a class="sub-b" href="cart.html">Cart</a></li>
-                                                                        <li><a class="sub-b" href="checkout.html">Checkout</a></li>
-                                                                        <li><a class="sub-b" href="trackorder.html">Track Order</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <!-- single item areas end -->
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <a href="shop-grid-sidebar.html" class="feature-add-megamenu-area">
-                                                                <img src="assets/images/feature/05.jpg" alt="feature_product">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="parent has-dropdown">
-                                            <a class="nav-link" href="#">Vendors</a>
-                                            <ul class="submenu">
-                                                <li><a class="sub-b" href="vendor-list.html">Vendor List</a></li>
-                                                <li><a class="sub-b" href="vendor-grid.html">Vendor Grid</a></li>
-                                                <li><a class="sub-b" href="vendor-details.html">Vendor Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="parent has-dropdown">
-                                            <a class="nav-link" href="#">Pages</a>
-                                            <ul class="submenu">
-                                                <li><a class="sub-b" href="about.php">About</a></li>
-                                                <li><a class="sub-b" href="store.html">Store</a></li>
-                                                <li><a class="sub-b" href="faq.html">Faq's</a></li>
-                                                <li><a class="sub-b" href="invoice.html">Invoice</a></li>
-                                                <li><a class="sub-b" href="contact.html">Contact</a></li>
-                                                <li><a class="sub-b" href="register.html">Register</a></li>
-                                                <li><a class="sub-b" href="login.html">Login</a></li>
-                                                <li><a class="sub-b" href="privacy-policy.html">Privacy Policy</a></li>
-                                                <li><a class="sub-b" href="cookies-policy.html">Cookies Policy</a></li>
-                                                <li><a class="sub-b" href="terms-condition.html">Terms & Condition</a></li>
-                                                <li><a class="sub-b" href="404.html">Error</a></li>
-                                            </ul>
-                                        </li>
+                                        <li class="parent"><a href="#">Information</a></li>
+                                        <li class="parent"><a href="#">Careers</a></li>
+                                        <li class="parent"><a href="faq.php">FAQ</a></li>
+                                        
                                         <li class="parent has-dropdown">
                                             <a class="nav-link" href="blog.php">Blog</a>
-                                            <ul class="submenu">
-                                                <li><a class="sub-b" href="blog.php">Blog</a></li>
-                                                <li><a class="sub-b" href="blog-list-left-sidebar.html">Blog List Right Sidebar</a></li>
-                                                <li><a class="sub-b" href="blog-list-right-sidebar.html">Blog List Left Sidebar</a></li>
-                                                <li><a class="sub-b" href="blog-details.html">Blog Details</a></li>
-                                            </ul>
                                         </li>
-                                        <li class="parent"><a href="contact.html">Contact</a></li>
+                                        <li class="parent"><a href="contact.php">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
                             <!-- button-area -->
-                            <div class="right-btn-area">
-                                <a href="#" class="btn-narrow">Trending Products</a>
+                            <div class="right-btn-area"  >
+                                <a href="#trending_product" class="btn-narrow">Trending Products</a>
                                 <button class="rts-btn btn-primary">
                                     Get 30% Discount Now
                                     <span>Sale</span>
@@ -749,3 +655,13 @@ if (isset($_GET['remove_item'])) {
 
     </div>
  
+
+    <a href="javascript:void(0)" onclick="scrollToTrending()">Trending Products</a>
+
+<script>
+function scrollToTrending() {
+  document.getElementById("trending_product").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+</script>

@@ -375,6 +375,9 @@ include('layout/header.php');
 
     <?php   } ?>
 
+
+    
+
     <!-- rts grocery feature area start -->
     <div class="rts-grocery-feature-area rts-section-gap bg_light-1">
         <div class="container">
@@ -419,7 +422,7 @@ include('layout/header.php');
                                 "slidesPerView":2,
                                 "spaceBetween":16},
                             "840":{
-                                "slidesPerView":3,
+                                "slidesPerView":4,
                                 "spaceBetween":16},
                             "1540":{
                                 "slidesPerView":6,
@@ -428,18 +431,27 @@ include('layout/header.php');
                         }'>
                             <div class="swiper-wrapper">
                                 <!-- single swiper start -->
+                                 
+
+                                <?php 
+                                 $id = $_GET['id'];
+                                $related_product = "SELECT * FROM  `product` WHERE status = '1' AND featured_product = '1'";
+                                $result = mysqli_query($conn , $related_product);
+                                while($product = mysqli_fetch_assoc($result)){
+?>
+                               
                                 <div class="swiper-slide">
                                     <div class="single-shopping-card-one">
                                         <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
+                                            <a href="shop-details.php?id=<?= $product['id']; ?>" class="thumbnail-preview">
                                                 <div class="badge">
                                                     <span>25% <br> 
                                                         Off
                                                     </span>
                                                     <i class="fa-solid fa-bookmark"></i>
                                                 </div>
-                                                <img src="assets/images/grocery/01.jpg" alt="grocery">
+                                                <img src="upload/<?= $product['product_image'] ?>" alt="grocery">
                                             </a>
                                             <div class="action-share-option">
                                                 <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
@@ -461,24 +473,25 @@ include('layout/header.php');
                                                 9 MINS
                                             </div>
                                             <a href="#">
-                                                <h4 class="title">Nestle Cerelac Mixed Fruits &
-                                                    Wheat with Milk</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
+                                                <h4 class="title"><?= $product['product_title'] ?> </h4>
+                                            </a>  
+                                            <span class="availability"><?= $product['product_sku'] ?></span>
                                             <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
+                                                <span class="current"><?= $product['product_price'] ?></span>
+                                                <!-- <div class="previous">$36.00</div> -->
                                             </div>
+                                            <input type="hidden" id="product_id" value="<?= $product['id']; ?>" >
                                             <div class="cart-counter-action">
                                                 <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
+                                                    <input type="text" class="input" name="qty" id="qty" value="1">
                                                     <div class="button-wrapper-action">
                                                         <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
                                                         <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
                                                     </div>
                                                 </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
+
+                                                <a   class="rts-btn btn-primary radious-sm with-icon">
+                                                    <div class="btn-text"  onclick="add_to_cart()">
                                                         Add To Cart
                                                     </div>
                                                     <div class="arrow-icon">
@@ -492,392 +505,9 @@ include('layout/header.php');
                                         </div>
                                     </div>
                                 </div>
-                                <!-- single swiper start -->
-                                <!-- single swiper start -->
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        <!-- iamge and sction area start -->
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="assets/images/grocery/02.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- iamge and sction area start -->
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Peysan Full Fat Fresh Cottage Cheese</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- single swiper start -->
-                                <!-- single swiper start -->
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        <!-- iamge and sction area start -->
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="assets/images/grocery/03.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- iamge and sction area start -->
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Aptamil Gold+ ProNutra Biotik Stage 1 Infant Formula...</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- single swiper start -->
-                                <!-- single swiper start -->
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        <!-- iamge and sction area start -->
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="assets/images/grocery/04.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- iamge and sction area start -->
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Abbott Pediasure Chocolate Refill Pack</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- single swiper start -->
-                                <!-- single swiper start -->
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        <!-- iamge and sction area start -->
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="assets/images/grocery/05.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- iamge and sction area start -->
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Pastine Mellin Filid Angelo 100% Di Grano Tenero</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- single swiper start -->
-                                <!-- single swiper start -->
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        <!-- iamge and sction area start -->
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="assets/images/grocery/06.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- iamge and sction area start -->
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Aussie Bubs Goat Milk Infant Formula Stage 1,</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- single swiper start -->
-                                <!-- single swiper start -->
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        <!-- iamge and sction area start -->
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="assets/images/grocery/15.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- iamge and sction area start -->
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Nestle Cerelac Mixed Fruits &
-                                                    Wheat with Milk</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- single swiper start -->
+
+                                <?php  }?>
+                                 
                             </div>
                         </div>
                     </div>

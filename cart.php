@@ -194,20 +194,7 @@ if(isset($_GET['remove_item'])){
         </div>
     </div>
     <!-- rts cart area end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+ 
     <!-- rts footer one area start -->
     <div class="rts-footer-area pt--80 bg_light-1">
         <div class="container">
