@@ -157,5 +157,6 @@
             </div>
         </div>
     </div>
+
     <!-- rts faq-area end -->
  <?php include('layout/footer.php');  ?>

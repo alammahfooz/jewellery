@@ -136,7 +136,7 @@ if (isset($_POST['subcategory'])) {
                                 $category_product = "SELECT * FROM category WHERE parent_id = 0";
                                 $result = mysqli_query($conn, $category_product);
                                 while ($best_seller = mysqli_fetch_assoc($result)) {
-                                ?>
+                                ?> 
                                     <div class="swiper-slide">
                                         <a href="shop-grid-sidebar.php?category_id=<?php echo $best_seller['id'] ?>" class="single-category-one">
                                             <img src="upload/<?= $best_seller['category_image']; ?>">
@@ -258,6 +258,8 @@ if (isset($_POST['subcategory'])) {
                                             <span class="current">$<?= $featured_product['product_price'] ?></span>
                                             <div class="previous"><?//= $featured_product['product_price'] ?></div>
                                         </div>
+
+                                        
                                         <div class="cart-counter-action">
                                             <div class="quantity-edit">
                                                 <input type="hidden" id="product_id" value="<?=  $featured_product['id']; ?>">
@@ -314,7 +316,7 @@ if (isset($_POST['subcategory'])) {
                     <div class="row g-5">
                         <div class="col-xl-12 col-lg-12">
                             <div class="row">
-                                  <?php
+                                <?php
                                 $discounted_product_section = "SELECT * FROM product WHERE  status = '1' AND discounted_product = '1'";
                                 $discounted_result = mysqli_query($conn, $discounted_product_section);
                                 while ($discounted_product = mysqli_fetch_assoc($discounted_result)) {
@@ -397,7 +399,7 @@ if (isset($_POST['subcategory'])) {
                                 $trending_product_section = "SELECT * FROM product WHERE  status = '1' AND trending_product = '1'";
                                 $trending_result = mysqli_query($conn, $trending_product_section);
                                 while ($trending_product = mysqli_fetch_assoc($trending_result)) {
-                                ?>
+                           ?>
                         <div class="col-xl-3 col-md-6 col-sm-12 col-12">
                             <div class="single-shopping-card-one tranding-product">
                                 <a href="shop-details.php?id=<?= $trending_product['id'] ?>" class="thumbnail-preview">

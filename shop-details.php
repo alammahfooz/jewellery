@@ -73,14 +73,20 @@ include('layout/header.php');
                                         </span>
                                         <input type="hidden" id="product_id" value="<?= $product['id']; ?>">
                                             <div class="product-bottom-action">
-                                            <div class="cart-edits">
+                                            <!-- <div class="cart-edits">
                                                     <div class="quantity-edit action-item">
                                                         <button class="button"><i class="fal fa-minus minus"></i></button>
                                                         <input type="text" id="qty" name="qty" class="input" value="1" />
                                                         <button class="button plus">+<i class="fal fa-plus plus"></i></button>
                                                     </div>
-                                            </div>
-                                                <a   class="rts-btn btn-primary radious-sm with-icon">
+                                            </div> -->
+
+                                   <div class=" action-item d-flex border qty_width">
+                                       <button class="button" onclick="sub_to_qty()">-</button>
+                                       <input type="text" class="input" name="qty" id="qty" value="1">
+                                       <button class="button" onclick="add_to_qty()">+</button>
+                                    </div>
+                                                <a class="rts-btn btn-primary radious-sm with-icon">
                                                     <div class="btn-text" onclick="add_to_cart()">
                                                         Add To Cart
                                                     </div>
@@ -483,7 +489,7 @@ include('layout/header.php');
                                             <input type="hidden" id="product_id" value="<?= $product['id']; ?>" >
                                             <div class="cart-counter-action">
                                                 <div class="quantity-edit">
-                                                    <input type="text" class="input" name="qty" id="qty" value="1">
+                                                    <input type="text" class="input" name="qtys" id="qtys" value="1">
                                                     <div class="button-wrapper-action">
                                                         <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
                                                         <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
@@ -571,7 +577,7 @@ include('layout/header.php');
                             </div>
                             <a href="#" class="rts-btn btn-primary radious-sm with-icon">
                                 <div class="btn-text">
-                                    Add To Cart
+                                Add To Cart
                                 </div>
                                 <div class="arrow-icon">
                                     <i class="fa-regular fa-cart-shopping"></i>
@@ -658,3 +664,20 @@ function add_to_cart(){
   window.location.href = "cart.php?qty=" + qty + "&id=" + product_id;
 }
 </script>
+
+
+    <script>
+        function add_to_qty(){
+            let  qty = parseInt(document.getElementById('qty').value);
+            let inc_qty = qty + 1; 
+          document.getElementById('qty').value = inc_qty;
+        }
+          function sub_to_qty(){
+            let  qty = parseInt(document.getElementById('qty').value);
+            let dec_qty = qty - 1;
+          document.getElementById('qty').value = dec_qty;
+        if(dec_qty < 1){
+            document.getElementById('qty').value = 1;
+        }
+        }
+    </script>

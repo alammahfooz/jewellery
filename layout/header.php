@@ -2,22 +2,23 @@
 include('admin/include/dbconnect.php');
 session_start();
 ob_start();
-if (isset($_GET['id']) && (isset($_GET['qty']))) {
-    $id = $_GET['id'];
-    $qty = $_GET['qty'];
+// session_destroy();
+// if (isset($_GET['id']) && (isset($_GET['qty']))) {
+//     $id = $_GET['id'];
+//     $qty = $_GET['qty'];
 
-    $_SESSION['cart_qty'] = $_GET['qty'];
-    $_SESSION['product_id'] = $id;
-    header("location: cart.php");
-}
+//     $_SESSION['cart_qty'] = $_GET['qty'];
+//     $_SESSION['product_id'] = $id;
+//     header("location: cart.php");
+// }
 
-if (isset($_GET['remove_item'])) {
-    unset(
-        $_SESSION['product_id'],
-        $_SESSION['cart_qty']
-    );
-    header('Location: cart.php');
-}
+// if (isset($_GET['remove_item'])) {
+//     unset(
+//         $_SESSION['product_id'],
+//         $_SESSION['cart_qty']
+//     );
+//     header('Location: cart.php');
+// }
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +35,12 @@ if (isset($_GET['remove_item'])) {
     <link rel="stylesheet preload" href="assets/css/plugins.css" as="style">
     <link rel="stylesheet preload" href="assets/css/style.css" as="style">
 
-  
+  <style>
+    .qty_width{
+        width: 100px;
+        margin-right: 20px;
+    }
+  </style>
 </head>
 
 <body class="shop-main-h">
@@ -54,14 +60,15 @@ if (isset($_GET['remove_item'])) {
                                     <img class="parent" src="assets/images/icons/bar-1.svg" alt="icons">
                                     <span>Categories</span>
                                     <ul class="category-sub-menu" id="category-active-four">
+                                        
                                         <?php
-                                        $fetch_parent = "SELECT * FROM category WHERE parent_id = 0";
+                                        $fetch_parent = "SELECT * FROM category WHERE parent_id = 0" ;
                                         $result_parent = mysqli_query($conn, $fetch_parent);
                                         while ($parent  = mysqli_fetch_assoc($result_parent)) {
                                         ?>
                                             <li>
                                                 <a href="#" class="menu-item">
-                                                    <span><?= $parent['category_name'] ?></span>
+                                                    <span onclick="window.location.href='shop-grid-sidebar.php?category_id=<?= $parent['id'] ?>'"><?= $parent['category_name'] ?></span>
                                                     <i class="fa-regular fa-plus"></i>
                                                 </a>
                                                 <ul class="submenu mm-collapse">
@@ -70,7 +77,7 @@ if (isset($_GET['remove_item'])) {
                                                     $result_sub = mysqli_query($conn, $fetch_sub);
                                                     while ($subcategory = mysqli_fetch_assoc($result_sub)) {
                                                     ?>
-                                                        <li><a class="mobile-menu-link" href="shop-grid-sidebar.php"><?= $subcategory['category_name']; ?></a></li>
+                                                        <li><a class="mobile-menu-link" href="shop-grid-sidebar.php?subcategory=<?= $subcategory['id'] ?>"><?= $subcategory['category_name']; ?></a></li>
 
                                                     <?php   } ?>
                                                 </ul>
@@ -126,7 +133,7 @@ if (isset($_GET['remove_item'])) {
                                         <h5 class="shopping-cart-number">Shopping Cart (01)</h5>
                                           <?php if (!empty($_SESSION['product_id'])) {
                                             $id = $_SESSION['product_id'];
-                                            $main_product = "SELECT * FROM product WHERE id = $id";
+                                            $main_product = "SELECT * FROM `product` WHERE id = $id";
                                             $result = mysqli_query($conn, $main_product);
                                             while ($product = mysqli_fetch_assoc($result)) {
                                                 $subtotal = $product['product_price'] * $_SESSION['cart_qty'];
@@ -207,8 +214,8 @@ if (isset($_GET['remove_item'])) {
                                 </nav>
                             </div>
                             <!-- button-area -->
-                            <div class="right-btn-area"  >
-                                <a href="#trending_product" class="btn-narrow">Trending Products</a>
+                            <div class="right-btn-area">
+                                <a href="javascrip:void(0)" class="btn-narrow" onclick="scrollToTrending()">Trending Products</a>
                                 <button class="rts-btn btn-primary">
                                     Get 30% Discount Now
                                     <span>Sale</span>
@@ -656,12 +663,13 @@ if (isset($_GET['remove_item'])) {
     </div>
  
 
-    <a href="javascript:void(0)" onclick="scrollToTrending()">Trending Products</a>
+    <!-- <a href="javascript:void(0)" onclick="scrollToTrending()">Trending Products</a> -->
 
 <script>
-function scrollToTrending() {
-  document.getElementById("trending_product").scrollIntoView({
-    behavior: "smooth"
-  });
+
+function scrollToTrending(){
+    document.getElementById("trending_product").scrollIntoView({
+        behavior: "smooth"
+    });
 }
 </script>

@@ -1,26 +1,79 @@
 <?php
-session_start();
+
 ob_start();
 include('admin/include/dbconnect.php');
 include('admin/include/configuration.php');
 include('layout/header.php'); 
 
-if(isset($_GET['id']) && (isset($_GET['qty']))){
+// if(isset($_GET['id']) && (isset($_GET['qty']))){
+//     $id = $_GET['id'];
+//     $qty = $_GET['qty'];
+
+// $_SESSION['cart_qty'] = $_GET['qty'];
+// $_SESSION['product_id'] = $id;
+// header("Location: cart.php");
+// }
+
+// Array
+// (
+//     [cart] => Array
+//         (
+//          [0] [['id'] => 3, ['qty'] => 1]
+//          [1] [['id'] => 4, ['qty'] => 1]
+//          [2] [['id'] => 5, ['qty'] => 1] 
+//         )
+
+// )
+// session_destroy();
+
+
+
+if(isset($_GET['id']) && isset($_GET['qty'])){
+
     $id = $_GET['id'];
     $qty = $_GET['qty'];
 
-$_SESSION['cart_qty'] = $_GET['qty'];
-$_SESSION['product_id'] = $id;
-header("Location: cart.php");
+    // cart create karo agar nahi hai
+    if(!isset($_SESSION['cart'])){
+        $_SESSION['cart'] = [];
+    }
+
+    $found = false;
+
+    // check karo product already hai ya nahi
+    foreach($_SESSION['cart'] as &$item){
+        if($item['id'] == $id){
+            $item['qty'] += $qty; // qty increase
+            $found = true;
+            break;
+        }
+    }
+
+    // agar nahi mila to naya add karo
+    if(!$found){
+        $_SESSION['cart'][] = [
+            'id' => $id,
+            'qty' => $qty
+        ];
+    }
+
+    header("Location: cart.php");
+    exit;
 }
+// echo "<pre>";
+// print_r($_SESSION);
+// exit;
+
 
 if(isset($_GET['remove_item'])){
     unset(
-        $_SESSION['product_id'],
-        $_SESSION['card_qty']
+        $_SESSION['id'],
+        $_SESSION['qty']
     );
     header('Location: cart.php');
 }
+
+
  ?>
     <div class="rts-navigation-area-breadcrumb bg_light-1">
         <div class="container">
@@ -82,25 +135,26 @@ if(isset($_GET['remove_item'])){
                         </div>
                         <?php 
                          
-                         if(!empty($_SESSION['product_id'])){
-                            $id = $_SESSION['product_id'];
+                         $session_cart = $_SESSION['cart'];
+                       
+                        // foreach($session_cart as $cart){
+                        //     $id = $cart['id'];
+                        //     $main_product = "SELECT * FROM product WHERE id = '$id'";
+                        //     $product = mysqli_fetch_assoc(mysqli_query($conn, $main_product));
+                        //      $subtotal = $product['product_price'] * $cart['qty'];
+                        
+
+                        foreach($session_cart as $cart){
+                            $total = 0;
+                            $id = $cart['id'];
                             $main_product = "SELECT * FROM product WHERE id = '$id'";
-                            $result = mysqli_query($conn, $main_product);
-                            while($product = mysqli_fetch_assoc($result)){
-                                $subtotal = $product['product_price'] * $_SESSION['cart_qty'];
-                                
-                        ?>
+                            $product = mysqli_fetch_assoc(mysqli_query($conn, $main_product));
+                            $subtotal = $product['product_price'] * $cart['qty'];
+                         ?>
                         <div class="single-cart-area-list main  item-parent">
                             <div class="product-main-cart">
                                 <a href="?remove_item=<?php echo $product['id']; ?>" class="close section-activation">
-                                    <i class="fa-regular fa-x"></i>
-</a>
-                               
- 
-
-                                <!-- <div class="close section-activation">
-                                    <i class="fa-regular fa-x"></i>
-                                </div> -->
+                                    <i class="fa-regular fa-x"></i></a>
                                 <div class="thumbnail">
                                     <img src="upload/<?= $product['product_image'] ?>" alt="shop">
                                 </div>
@@ -112,19 +166,23 @@ if(isset($_GET['remove_item'])){
                             <div class="price">
                                 <p>$<?= $product['product_price']; ?></p>
                             </div>
+                           
+
                             <div class="quantity">
                                 <div class="quantity-edit">
-                                    <input type="text" class="input" name="qty" id="qty" value="<?= $_SESSION['cart_qty']; ?>">
+                                    <input type="text" class="input" min="1" name="qty" id="qty_<?= $cart['id'] ?>" value="<?= $cart['qty']; ?>">
                                     <div class="button-wrapper-action">
-                                        <button class="button"><i class="fa-regular fa-chevron-down" onclick="sub_to_qty(<?= $_SESSION['product_id'] ?>)"></i></button>
-                                        <button class="button plus">+<i class="fa-regular fa-chevron-up" onclick="add_to_qty(<?= $_SESSION['product_id'] ?>)"></i></button>
+                                        <button class="button"><i class="fa-regular fa-chevron-down" onclick="sub_to_qty(<?= $cart['id'] ?>)"></i></button>
+                                        <button class="button plus">+<i class="fa-regular fa-chevron-up" onclick="add_to_qty(<?= $cart['id'] ?>)"></i></button>                                             
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="subtotal">
-                                <p>$<?= $subtotal?></p>
+                                <p>$<?= $subtotal ?></p>
                             </div>
                         </div>
+                          <?php } ?>
  <div class="bottom-cupon-code-cart-area">
                             <form action="#">
                                 <input type="text" placeholder="Cupon Code">
@@ -132,7 +190,7 @@ if(isset($_GET['remove_item'])){
                             </form>
                             <a href="?remove_item=<?= $product['id'];  ?>" class="rts-btn btn-primary mr--50">Clear All</a>
                         </div>
-                        <?php  }} else echo "<p class='text-center fs-2 p-4 text-danger'>cart is empty</p>" ?>;
+                      
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-12 col-md-12 col-12 order-1 order-xl-2 order-lg-1 order-md-1 order-sm-1">
@@ -673,14 +731,21 @@ if(isset($_GET['remove_item'])){
  
 
     <script>
-        function add_to_qty(product_id){
-            let  qty = parseInt(document.getElementById('qty').value);
-            let inc_qty = qty + 1;
-            window.location.href = "cart.php?id="+product_id+'&qty='+inc_qty;                  
+        function add_to_qty(id){
+            let inc_qty = 1;
+            window.location.href = "cart.php?id="+id+'&qty='+inc_qty;    
         }
-          function sub_to_qty(product_id){
-            let  qty = parseInt(document.getElementById('qty').value);
-            let dec_qty = qty - 1;
-            window.location.href = "cart.php?id="+product_id+'&qty='+dec_qty;                  
-        }
+          function sub_to_qty(id){
+              let  qty = parseInt(document.getElementById('qty_'+id).value);              
+              let dec_qty =  - 1;
+            
+            if(qty > 1) {
+            
+                window.location.href = "cart.php?id="+id+'&qty='+dec_qty;  
+                
+            }    
+                    
+       
+           
+                            }
     </script>
