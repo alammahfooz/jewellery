@@ -24383,7 +24383,7 @@ body.modal-open {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 33px 0;
+  padding: 10px 0;
   margin: 0 36px;
   border-bottom: 1px solid #E2E2E2;
   gap: 20px;

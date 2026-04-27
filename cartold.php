@@ -639,10 +639,6 @@ if(isset($_GET['remove_item'])){
 </div> -->
     <!--================= Preloader End Here =================-->
 
-
-
-
-
     <div class="search-input-area">
         <div class="container">
             <div class="search-input-inner">
