@@ -192,6 +192,12 @@
                                 <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
                             </ul>
                         </div>
+                           <div class="copyright-between-1">
+                        <p class="disc ">
+                            Copyright 2026 <a href="#">Jewellery</a>. All rights reserved.
+                        </p>
+                       
+                    </div>
                         <div class="payment-access">
                             <span>Payment Accepts:</span>
                             <img src="assets/images/payment/01.png" alt="">
@@ -203,25 +209,7 @@
     </div>
     <!-- rts footer one area end -->
 
-    <!-- rts copyright-area start -->
-    <div class="rts-copyright-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright-between-1">
-                        <p class="disc">
-                            Copyright 2024 <a href="#">©Ekomart</a>. All rights reserved.
-                        </p>
-                        <a href="#" class="playstore-app-area">
-                            <span>Download App</span>
-                            <img src="assets/images/payment/02.png" alt="">
-                            <img src="assets/images/payment/03.png" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
  
     <div class="product-details-popup-wrapper">
         <div class="rts-product-details-section rts-product-details-section2 product-details-popup-section">

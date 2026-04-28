@@ -1,7 +1,8 @@
 <?php
-include('admin/include/dbconnect.php');
 session_start();
 ob_start();
+include('admin/include/dbconnect.php');
+
 // session_destroy();
 // if (isset($_GET['id']) && (isset($_GET['qty']))) {
 //     $id = $_GET['id'];
@@ -19,6 +20,38 @@ ob_start();
 //     );
 //     header('Location: cart.php');
 // }
+if (isset($_GET['id']) && isset($_GET['qty'])) {
+    $id = $_GET['id'];
+    $qty = $_GET['qty'];
+
+    // cart create karo agar nahi hai
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+
+    $found = false;
+
+    // check karo product already hai ya nahi
+    foreach ($_SESSION['cart'] as &$item) {
+        if ($item['id'] == $id) {
+            $item['qty'] += $qty; // qty increase
+            $found = true;
+            break;
+        }
+    }
+
+    // agar nahi mila to naya add karo
+    if (!$found) {
+        $_SESSION['cart'][] = [
+            'id' => $id,
+            'qty' => $qty
+        ];
+    }
+
+
+    header("Location: cart.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -131,13 +164,23 @@ ob_start();
                                     <span class="number">1</span>
                                     <div class="category-sub-menu card-number-show">
                                         <h5 class="shopping-cart-number">Shopping Cart (01)</h5>
-                                          <?php if (!empty($_SESSION['product_id'])) {
-                                            $id = $_SESSION['product_id'];
-                                            $main_product = "SELECT * FROM `product` WHERE id = $id";
-                                            $result = mysqli_query($conn, $main_product);
-                                            while ($product = mysqli_fetch_assoc($result)) {
-                                                $subtotal = $product['product_price'] * $_SESSION['cart_qty'];
+                                        
+                                          <?php 
+                                            if(isset($_SESSION['cart'])){
+                                                 $session_cart = $_SESSION['cart'];
+                                            }
+                                           if (!empty($_SESSION['cart'])) {
+
+                                            $i = 1;
+                                            $subtotal = 0;
+                                            foreach ($session_cart as $cart) {
+                                                $id = $cart['id'];
+                                                $main_product = "SELECT * FROM product WHERE id = '$id'";
+                                                $product = mysqli_fetch_assoc(mysqli_query($conn, $main_product));
+                                                $total = $product['product_price'] * $cart['qty'];
+                                                $subtotal += $total;
                                         ?>
+                                        
                                         <div class="cart-item-1 border-top">
                                             <div class="img-name">
                                                 <div class="thumbanil">
@@ -148,7 +191,7 @@ ob_start();
                                                         <h5 class="title"><?= $product['product_title'] ?></h5>
                                                     </a>
                                                     <div class="number">
-                                                        <?= $_SESSION['cart_qty'] ?> <i class="fa-regular fa-x"></i>
+                                                        <?= $cart['qty']; ?> <i class="fa-regular fa-x"></i>
                                                         <span>$<?= $product['product_price'] ?></span>
                                                     </div>
                                                 </div>
@@ -174,14 +217,14 @@ ob_start();
                                                 <p>Spend More <span>$125.00</span> to reach <span>Free Shipping</span></p>
                                             </div>
                                             <div class="button-wrapper d-flex align-items-center justify-content-between">
-                                                <a href="cart.html" class="rts-btn btn-primary ">View Cart</a>
-                                                <a href="checkout.html" class="rts-btn btn-primary border-only">CheckOut</a>
+                                                <a href="cart.php" class="rts-btn btn-primary ">View Cart</a>
+                                                <a href="checkout.php" class="rts-btn btn-primary border-only">CheckOut</a>
                                             </div>
                                         </div>
                                          <?php }
                                         } else echo "<p class='text-center fs-2 p-4 text-danger'>cart is empty</p>" ?>
                                     </div>
-                                    <a href="cart.html" class="over_link"></a>
+                                    <a href="cart.php" class="over_link"></a>
                                 </div>
                                  
                             </div>
@@ -401,12 +444,12 @@ ob_start();
                                                     <p>Spend More <span>$125.00</span> to reach <span>Free Shipping</span></p>
                                                 </div>
                                                 <div class="button-wrapper d-flex align-items-center justify-content-between">
-                                                    <a href="cart.html" class="rts-btn btn-primary ">View Cart</a>
+                                                    <a href="cart.php" class="rts-btn btn-primary ">View Cart</a>
                                                     <a href="checkout.html" class="rts-btn btn-primary border-only">CheckOut</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="cart.html" class="over_link"></a>
+                                        <a href="cart.php" class="over_link"></a>
                                     </div>
                                 </div>
                                 <div class="actions-area">
@@ -523,7 +566,7 @@ ob_start();
                                         <li class="has-droupdown third-lvl">
                                             <a class="main" href="#">Shop Others</a>
                                             <ul class="submenu-third-lvl mm-collapse">
-                                                <li><a href="cart.html"></a>Cart</li>
+                                                <li><a href="cart.php"></a>Cart</li>
                                                 <li><a href="checkout.html"></a>Checkout</li>
                                                 <li><a href="trackorder.html"></a>Trackorder</li>
                                             </ul>

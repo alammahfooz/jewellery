@@ -1,21 +1,14 @@
 <?php
 
 ob_start();
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ 
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 include('admin/include/dbconnect.php');
 include('admin/include/configuration.php');
 include('layout/header.php');
 
-
-
-
- 
-
 if (isset($_POST['submit'])) {
-
-    // ✅ Customer fields
     $email = $_POST['email'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
@@ -25,43 +18,47 @@ if (isset($_POST['submit'])) {
     $state = $_POST['state'];
     $zip_code = $_POST['zip_code'];
     $phone = $_POST['phone'];
-    
-   
+
     $product_ids = $_POST['product_id'];
     $qtys = $_POST['qty'];
-    
-    $product_price = $_POST['product_price'];
+    $order_id = $_POST['order_id'];
     $total_price = $_POST['total_price'];
-
-   
-    $order_id = time();
     $date = time();
 
-    
-    $customer_order = "INSERT INTO orde_process 
-    (email, fname, lname, country, address, city, state, zip_code, phone, date, total_price, order_id)
-    VALUES 
-    ('$email', '$fname', '$lname', '$country', '$address', '$city', '$state', '$zip_code', '$phone', '$date', '$total_price', '$order_id')";
+//    $check = mysqli_query($conn, "SELECT id FROM orders WHERE order_id = '$order_id' LIMIT 1");
+
+// if(mysqli_num_rows($check) > 0){
+//     echo "<p class='text-danger'>Order already exists!</p>";
+//     exit;
+// }
+
+    $customer_order = "INSERT INTO `orders` (email, fname, lname, country, address, city, state, zip_code, phone, date, total_price, order_id) VALUES ('$email', '$fname', '$lname', '$country', '$address', '$city', '$state', '$zip_code', '$phone', '$date', '$total_price', '$order_id')";
 
     // echo $customer_order;
     // exit;
     mysqli_query($conn, $customer_order);
+     $id = mysqli_insert_id($conn);
+     $order_id = mysqli_insert_id($conn);
 
-
-    // ✅ Now insert products
+    //  Now insert products
     for ($i = 0; $i < count($product_ids); $i++) {
 
-        $pid = $product_ids[$i];
-        $qty = $qtys[$i];
-        $price = $product_price[$i];
+        $product_ids = $_POST['product_id'];
+        $qtys = $_POST['qty'];
+        $prices = $_POST['price'];
 
-        mysqli_query($conn, "INSERT INTO order_items 
-        (order_id, product_id, qty, price)
-        VALUES 
-        ('$order_id','$pid','$qty','$price')");
+        for ($i = 0; $i < count($product_ids); $i++) {
+
+            $pid = $product_ids[$i];
+            $qty = $qtys[$i];
+            $price = $prices[$i];
+          
+            mysqli_query($conn, "INSERT INTO `order_items` (order_id, product_id, qty, product_price , date)  VALUES ('$id','$pid','$qty','$price', $date)");
+        }
     }
-
+    
     header("Location: thank-you.php?msg_id=5");
+    
     exit();
 }
 ?>
@@ -132,36 +129,52 @@ if (isset($_POST['submit'])) {
 
                 <div class="rts-billing-details-area">
                     <h3 class="title">Billing Details</h3>
+                    <!-- product_id, order_statu, qty, product_price, order_id  -->
                     <form action="#" method='POST' enctype="multipart/form-data">
                         <div class="single-input">
                             <label for="email">Email Address*</label>
                             <input id="email" name="email" value="" type="text" required>
                         </div>
 
-                         <?php
-    $session_cart = $_SESSION['cart'];
-    $subtotal = 0;
+                        <?php
+                        $session_cart = $_SESSION['cart'] ?? [];
+                        $subtotal = 0;
 
-    if (!empty($session_cart)) {
-        foreach ($session_cart as $index => $cart) {
+                        if (!empty($session_cart)) {
+                            foreach ($session_cart as $cart) {
 
-            $id = $cart['id'];
-            $product = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM product WHERE id='$id'"));
+                                $id = $cart['id'];
+                                $qty = $cart['qty'];
 
-            $total = $product['product_price'] * $cart['qty'];
-            $subtotal += $total;
-    ?>
-    
-        <input type="hidden" name="product_id[]" value="<?= $id ?>">
-        <input type="hidden" name="qty[]" value="<?= $cart['qty'] ?>">
-        <input type="hidden" name="price[]" value="<?= $product['product_price'] ?>">
+                                $product = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM product WHERE id='$id'"));
 
-    <?php } } ?>
+                                if ($product) {
+                                    $price = $product['product_price'];
+                                    $total = $price * $qty;
+                                    $subtotal += $total;
+                        ?>
 
- 
-    <input type="hidden" name="total_price" value="<?= $subtotal ?>">
+                                    <input type="hidden" name="product_id[]" value="<?= $id ?>">
+                                    <input type="hidden" name="qty[]" value="<?= $qty ?>">
+                                    <input type="hidden" name="price[]" value="<?= $price ?>">
 
-   
+                        <?php
+                                }
+                            }
+                        }
+                        ?>
+
+                        <!-- ✅ important hidden fields -->
+                        <input type="hidden" name="total_price" value="<?= $subtotal ?>">
+                        <input type="hidden" name="order_id" value="<?= uniqid('ORD_') ?>">
+                        <input type="hidden" name="order_status" value="Pending">
+
+
+
+
+
+
+
                         <div class="half-input-wrapper">
                             <div class="single-input">
                                 <label for="fname">First Name*</label>
@@ -206,7 +219,7 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <button class="rts-btn btn-primary" type="submit" name="submit">Place Order</button>
-                        
+
                     </form>
                 </div>
             </div>
@@ -231,8 +244,10 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                     <?php
-
-                    $session_cart = $_SESSION['cart'];
+                     
+                     if(isset($_SESSION['cart'])){
+            $session_cart = $_SESSION['cart'];
+                    };
                     // $count = count($session_cart);
                     // echo $count;
                     // exit;
@@ -246,15 +261,15 @@ if (isset($_POST['submit'])) {
                             $total = $product['product_price'] * $cart['qty'];
                             $subtotal += $total;  ?>
 
-                        <div class="single-shop-list">
+                            <div class="single-shop-list">
                                 <div class="left-area">
-                                     <a  class="count">
-                                        <?= str_pad($i , 2, '0', STR_PAD_LEFT); ?>
+                                    <a class="count">
+                                        <?= str_pad($i, 2, '0', STR_PAD_LEFT); ?>
                                     </a>
                                     <a href="#" class="thumbnail">
                                         <img src="upload/<?= $product['product_image']; ?>" alt="">
                                     </a>
-                                   
+
                                     <a href="#" class="title">
                                         <?= $product['product_title']; ?>
                                     </a>
@@ -263,7 +278,8 @@ if (isset($_POST['submit'])) {
                                 <span class="price">$<?= $product['product_price']; ?></span>
                                 <span class="price">$<?= $total; ?></span>
                             </div>
-                    <?php $i++; }
+                    <?php $i++;
+                        }
                     } else echo "<p class='text-center fs-2 p-4 text-danger'>cart is empty</p>" ?>
 
                     <div class="single-shop-list" style="margin-top: 100px;">
