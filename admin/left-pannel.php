@@ -120,6 +120,15 @@
                    </li>
                    <li class="nxl-item nxl-hasmenu">
                        <a href="javascript:void(0);" class="nxl-link">
+                           <span class="nxl-micon"><i class="feather-message-square"></i></span>
+                           <span class="nxl-mtext">Sales</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                       </a>
+                       <ul class="nxl-submenu">
+                           <li class="nxl-item"><a class="nxl-link" href="order-manager.php">Orders</a></li>
+                       </ul>
+                   </li>
+                   <li class="nxl-item nxl-hasmenu">
+                       <a href="javascript:void(0);" class="nxl-link">
                            <span class="nxl-micon"><i class="feather-grid"></i></span>
                            <span class="nxl-mtext">Blog Category</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                        </a>

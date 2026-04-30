@@ -45,9 +45,8 @@ if (isset($_GET['id']) && isset($_GET['qty'])) {
         $_SESSION['cart'][] = [
             'id' => $id,
             'qty' => $qty
-        ];
-    }
-
+        ];    
+        }
 
     header("Location: cart.php");
     exit;
