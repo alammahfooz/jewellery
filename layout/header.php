@@ -20,6 +20,11 @@ include('admin/include/dbconnect.php');
 //     );
 //     header('Location: cart.php');
 // }
+
+if(isset($_SESSION['success'])){
+    echo $_SESSION['success'];
+    unset($_SESSION['success']);
+}
 if (isset($_GET['id']) && isset($_GET['qty'])) {
     $id = $_GET['id'];
     $qty = $_GET['qty'];

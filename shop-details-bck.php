@@ -381,7 +381,7 @@
                                                                     <ul>
                                                                         <li><a class="sub-b" href="shop-details.html">Shop Details</a></li>
                                                                         <li><a class="sub-b" href="shop-details-2.html">Shop Details V2</a></li>
-                                                                        <li><a class="sub-b" href="shop-details-right-sidebar.html">Shop Details V3</a></li>
+                                                                        <li><a class="sub-b" href="shop-details-right-sidebar.html">Shobp Details V3</a></li>
                                                                         <li><a class="sub-b" href="shop-details-4.html">Shop Details V4</a></li>
                                                                     </ul>
                                                                 </div>

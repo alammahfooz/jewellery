@@ -18,13 +18,14 @@ if (isset($_POST['submit'])) {
     $state = $_POST['state'];
     $zip_code = $_POST['zip_code'];
     $phone = $_POST['phone'];
+
     $product_ids = $_POST['product_id'];
     $qtys = $_POST['qty'];
     $order_id = $_POST['order_id'];
     $total_price = $_POST['total_price'];
     $date = time();
 
-//  $check = mysqli_query($conn, "SELECT id FROM orders WHERE order_id = '$order_id' LIMIT 1");
+//    $check = mysqli_query($conn, "SELECT id FROM orders WHERE order_id = '$order_id' LIMIT 1");
 
 // if(mysqli_num_rows($check) > 0){
 //     echo "<p class='text-danger'>Order already exists!</p>";
@@ -33,13 +34,13 @@ if (isset($_POST['submit'])) {
 
     $customer_order = "INSERT INTO `orders` (email, fname, lname, country, address, city, state, zip_code, phone, date, total_price, order_id) VALUES ('$email', '$fname', '$lname', '$country', '$address', '$city', '$state', '$zip_code', '$phone', '$date', '$total_price', '$order_id')";
 
-    // echo $customer_order; platform
+    // echo $customer_order;
     // exit;
     mysqli_query($conn, $customer_order);
      $id = mysqli_insert_id($conn);
      $order_id = mysqli_insert_id($conn);
 
-    //  Now insert products             
+    //  Now insert products
     for ($i = 0; $i < count($product_ids); $i++) {
 
         $product_ids = $_POST['product_id'];
@@ -94,7 +95,7 @@ if (isset($_POST['submit'])) {
                     <div class="coupon-area">
                         <div class="coupon-ask">
                             <span>Returning customers?</span>
-                            <a href="login.php" class="coupon-click text-light fs-3"> <span class="fs-1">☞</span> Click here to login</a>
+                            <button class="coupon-click"> Click here to login</button>
                         </div>
                         <div class="coupon-input-area">
                             <div class="inner">
